@@ -223,10 +223,8 @@ proc/get_all_job_icons() return joblist + list("Prisoner")//For all existing HUD
 				"Tank Crewman",
 				"Mech Operator",
 				"Corporate Liaison",
-				"Chief Engineer",
-				"Maintenance Tech",
-				"Requisitions Officer",
-				"Cargo Technician",
+				"Logistics Officer",
+				"Supply And Maintenance Tech",
 				"Squad Leader",
 				"Squad Engineer",
 				"Squad Medic",
@@ -236,6 +234,7 @@ proc/get_all_job_icons() return joblist + list("Prisoner")//For all existing HUD
 				"Chief Medical Officer",
 				"Doctor",
 				"Researcher",
+				"Cook",
 				"Military Police",
 				"Chief MP"
 				)

@@ -61,6 +61,7 @@
 						/obj/item/attachable/attached_gun/grenade,
 						/obj/item/attachable/attached_gun/flamer,
 						/obj/item/attachable/attached_gun/shotgun,
+						/obj/item/attachable/attached_gun/laser_targeting,
 						/obj/item/attachable/scope,
 						/obj/item/attachable/scope/mini)
 
@@ -128,6 +129,7 @@
 						/obj/item/attachable/reddot,
 						/obj/item/attachable/attached_gun/grenade,
 						/obj/item/attachable/attached_gun/flamer,
+						/obj/item/attachable/attached_gun/laser_targeting,
 						/obj/item/attachable/attached_gun/shotgun)
 
 	flags_gun_features = GUN_AUTO_EJECTOR|GUN_CAN_POINTBLANK|GUN_AMMO_COUNTER|GUN_TRIGGER_SAFETY
@@ -177,6 +179,7 @@
 						/obj/item/attachable/attached_gun/grenade,
 						/obj/item/attachable/attached_gun/flamer,
 						/obj/item/attachable/attached_gun/shotgun,
+						/obj/item/attachable/attached_gun/laser_targeting,
 						/obj/item/attachable/scope/slavic)
 
 	flags_gun_features = GUN_AUTO_EJECTOR|GUN_CAN_POINTBLANK|GUN_TRIGGER_SAFETY
@@ -242,6 +245,7 @@
 						/obj/item/attachable/burstfire_assembly,
 						/obj/item/attachable/attached_gun/grenade,
 						/obj/item/attachable/attached_gun/flamer,
+						/obj/item/attachable/attached_gun/laser_targeting,
 						/obj/item/attachable/attached_gun/shotgun
 						)
 
@@ -288,6 +292,7 @@
 						/obj/item/attachable/compensator,
 						/obj/item/attachable/burstfire_assembly,
 						/obj/item/attachable/magnetic_harness,
+						/obj/item/attachable/attached_gun/laser_targeting,
 						/obj/item/attachable/scope)
 
 	flags_gun_features = GUN_AUTO_EJECTOR|GUN_CAN_POINTBLANK|GUN_AMMO_COUNTER|GUN_WIELDED_FIRING_ONLY|GUN_TRIGGER_SAFETY
@@ -382,7 +387,6 @@
 	S.flags_attach_features &= ~ATTACH_REMOVABLE
 	S.Attach(src)
 	update_attachable(S.slot)
-	S.icon_state = initial(S.icon_state)
 	//scope
 	var/obj/item/attachable/scope/F = new(src)
 	F.attach_icon = ""
@@ -390,7 +394,6 @@
 	F.flags_attach_features &= ~ATTACH_REMOVABLE
 	F.Attach(src)
 	update_attachable(F.slot)
-	F.icon_state = initial(F.icon_state)
 
 
 
@@ -404,53 +407,3 @@
 	scatter_unwielded = config.max_scatter_value
 	damage_mult = config.base_hit_damage_mult
 	recoil_unwielded = config.high_recoil_value
-
-//-------------------------------------------------------
-
-//SAIGA automatic shotgun
-
-/obj/item/weapon/gun/rifle/saiga
-	name = "Saiga 22 shotgun"
-	desc = "A custom made automatic shotgun,this shotgun can rival tactical shotgun and is only given to elite USCM units."
-	icon_state = "saiga"
-	item_state = "saiga"
-	fire_sound = 'sound/weapons/gun_shotgun.ogg'
-	origin_tech = "combat=7;materials=5"
-	current_mag = /obj/item/ammo_magazine/rifle/saiga
-	type_of_casings = "shell"
-	gun_skill_category = GUN_SKILL_SHOTGUNS
-	attachable_allowed = list()
-	flags_gun_features = GUN_AUTO_EJECTOR|GUN_CAN_POINTBLANK|GUN_TRIGGER_SAFETY
-
-/obj/item/weapon/gun/rifle/saiga/New()
-	..()
-	attachable_offset = list("muzzle_x" = 30, "muzzle_y" = 21,"rail_x" = 15, "rail_y" = 23, "under_x" = 24, "under_y" = 13, "stock_x" = 24, "stock_y" = 13)
-	//Vertical grip
-	var/obj/item/attachable/verticalgrip/S = new(src)
-	S.attach_icon = ""
-	S.icon_state = ""
-	S.flags_attach_features &= ~ATTACH_REMOVABLE
-	S.Attach(src)
-	update_attachable(S.slot)
-	//scope
-	var/obj/item/attachable/reddot/F = new(src)
-	F.attach_icon = ""
-	F.icon_state = ""
-	F.flags_attach_features &= ~ATTACH_REMOVABLE
-	F.Attach(src)
-	update_attachable(F.slot)
-	F.icon_state = initial(F.icon_state)
-
-
-/obj/item/weapon/gun/rifle/saiga/set_gun_config_values()
-	fire_delay = config.mhigh_fire_delay*3
-	accuracy_mult = config.base_hit_accuracy_mult
-	accuracy_mult_unwielded = config.base_hit_accuracy_mult + config.low_hit_accuracy_mult - config.hmed_hit_accuracy_mult
-	scatter = config.med_scatter_value
-	scatter_unwielded = config.max_scatter_value
-	damage_mult = config.base_hit_damage_mult - config.low_hit_damage_mult
-	recoil = config.low_recoil_value
-	recoil_unwielded = config.high_recoil_value
-
-
-//-------------------------------------------------------

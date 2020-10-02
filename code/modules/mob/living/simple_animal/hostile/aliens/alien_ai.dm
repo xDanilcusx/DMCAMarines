@@ -15,16 +15,33 @@
 #define HOSTILE_STANCE_FOLLOW 8
 
 //Common procs
+/mob/living/simple_animal/alien/say(var/message)
+	return
+
+/mob/living/simple_animal/alien/whisper()
+	return
+
+/mob/living/simple_animal/alien/emote()
+	return
+
+/mob/living/simple_animal/alien/start_pulling(atom/movable/AM, lunge, no_msg)
+	return
+
 /mob/living/simple_animal/alien/Life()				//I deserve to burn in hell@polion1232
 	. = ..()
 
 	if(!.)
 		walk(src, 0)
+		if(world.time >= timeofdeath + 5 MINUTES)
+			visible_message("<span class='xenowarning'>[src]'s body sizzle a little and fall apart!</span>", "")
+			cdel(src)
 		return 0
 
 	var/obj/effect/alien/weeds/W = locate() in src.loc
 	if(W != null && stat != DEAD)
 		health = min(maxHealth, health+5)
+
+	handle_special_behavior()
 
 	if(client)
 		return 0
@@ -64,6 +81,8 @@
 
 		if(isliving(A))
 			var/mob/living/L = A
+			if(A.alpha <  125)
+				continue
 			if(L in friends)
 				continue
 			else if (isrobot(L))
@@ -155,7 +174,6 @@
 		LoseTarget()
 
 /mob/living/simple_animal/alien/proc/AttackTarget()
-
 	stop_automated_movement = 1
 	if(!target || SA_attackable(target))
 		LoseTarget()
@@ -169,6 +187,7 @@
 			LoseTarget()
 			return 0
 	if(get_dist(src, target) <= 1)	//Attacking
+		makeStatement()
 		AttackingTarget()
 		return 1
 
@@ -199,6 +218,26 @@
 /mob/living/simple_animal/alien/proc/LostTarget()
 	stance = HOSTILE_STANCE_IDLE
 	walk(src, 0)
+
+/mob/living/simple_animal/alien/proc/makeStatement()
+	if(statement >= world.time + 25 SECONDS || !(xeno_number > 0 && xeno_number <= hive_datum.len))
+		return
+	statement = world.time
+	var/msg = pick("FOR THE HIVE!", "ATTACK!", "WE HAVE NO FEAR!", "NO RETREAT!", "PREY!")
+	var/datum/hive_status/hive = hive_datum[xeno_number]
+	if(!hive.living_xeno_queen)
+		return
+
+	var/rendered = "<i><span class='game say'>Hivemind, <span class='name'>[name]</span> <span class='message'> hisses, '[msg]'</span></span></i>"
+	for (var/mob/S in player_list)
+		if(!isnull(S) && (isXeno(S) || S.stat == DEAD) && !istype(S,/mob/new_player))
+			if(istype(S,/mob/dead/observer))
+				if(S.client.prefs && S.client.prefs.toggles_chat & CHAT_GHOSTHIVEMIND)
+					var/track = "(<a href='byond://?src=\ref[S];track=\ref[src]'>follow</a>)"
+					var/ghostrend = "<i><span class='game say'>Hivemind, <span class='name'>[name]</span> [track]<span class='message'> hisses, '[msg]'</span></span></i>"
+					S.show_message(ghostrend, 2)
+			else if(xeno_number == xeno_hivenumber(S))
+				S.show_message(rendered, 2)
 
 
 /mob/living/simple_animal/alien/proc/ListTargets(var/dist = 7)
@@ -232,6 +271,9 @@
 		if(HOSTILE_STANCE_FOLLOW)
 			handle_follow()
 
+	return
+
+/mob/living/simple_animal/alien/proc/handle_special_behavior()
 	return
 
 /mob/living/simple_animal/alien/proc/handle_follow()
@@ -281,6 +323,9 @@
 	. = ..()
 	if(!.) return //If they were already dead, it will return.
 	walk(src, 0)
+	stat = DEAD
+	if(xeno_number > 0 && xeno_number <= hive_datum.len)
+		hive_datum[xeno_number].xeno_lessers_list -= src
 	if(leader)
 		if(isXeno(leader))
 			var/mob/living/carbon/Xenomorph/X = leader
@@ -291,10 +336,14 @@
 			lead.bot_followers--
 			leader = null
 	playsound(src, 'sound/voice/alien_death.ogg', 50, 1)
+	return 1
+
+/mob/living/simple_animal/alien/spawn_gibs()
+	xgibs(loc, null, null)
 
 // Drone things
 
-/mob/living/simple_animal/alien/drone/handle_bot_alien_behavior()
+/mob/living/simple_animal/alien/drone/handle_special_behavior()
 	var/obj/effect/alien/weeds/W = locate() in range(4, loc)
 	var/obj/effect/alien/weeds/node/N = locate() in range(6, loc)
 	if(!W || !N)
@@ -304,8 +353,6 @@
 
 		new /obj/effect/alien/weeds/node(src.loc, src, null)
 		playsound(src.loc, "alien_resin_build", 25)
-
-	return ..()
 
 /mob/living/simple_animal/alien/drone/FindTarget()
 	var/list/enemies = new/list()
@@ -378,8 +425,9 @@
 
 // Tearer things
 
-/mob/living/simple_animal/alien/ravager/handle_bot_alien_behavior()
-	. = ..()
+/mob/living/simple_animal/alien/ravager/handle_special_behavior()
+	if(prob(50))
+		return
 
 	if(rage > 0)
 		melee_damage_upper -= 5*rage
@@ -415,3 +463,49 @@
 		HE.KnockDown(2, 1)
 		to_chat(HE, "<span class='xenowarning'>You are struck by \the [src]'s tail sweep!</span>")
 		playsound(HE,'sound/weapons/alien_claw_block.ogg', 50, 1)
+
+// Suicider Things
+
+/mob/living/simple_animal/alien/explosive/death(gibbed, deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw.")
+	. = ..()
+	if(!.)
+		return
+
+	explode(get_turf(src))
+	if(!gibbed)
+		spawn_gibs()
+		cdel(src)
+
+/mob/living/simple_animal/alien/explosive/AttackingTarget()
+	if(!Adjacent(target))
+		return
+	gib()
+
+/mob/living/simple_animal/alien/explosive/proc/explode(turf/T)
+	var/damage = 100				//He is a hellova bang
+
+	visible_message("<span class='danger'>[src] begins to bulge grotesquely, and explodes in a cloud of corrosive gas!</span>")
+	smoke.set_up(2, 0, get_turf(src))
+	smoke.start()
+
+	for(var/atom/movable/AM in oview(4, T))
+		if(isXeno(AM) || isXenoBot(AM))
+			continue
+
+		var/actualDamage = damage/(get_dist(AM,src))
+
+		if(ishuman(AM))
+			var/mob/living/carbon/human/H = AM
+			H.take_limb_damage(0, actualDamage)
+			to_chat(H, "<span class='danger'>You've been hit by acid splash!</span>")
+			continue
+
+		var/obj/vehicle/V = locate(/obj/vehicle) in src.loc
+		if(V)
+			if(istype(V,/obj/vehicle/multitile/root/cm_armored))
+				var/obj/vehicle/multitile/root/cm_armored/Tank = V
+				Tank.take_damage_type(actualDamage, "acid")
+			if(isMech(V))
+				var/obj/vehicle/walker/W = V
+				W.take_damage(actualDamage, "acid")
+			continue

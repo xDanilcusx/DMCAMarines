@@ -164,7 +164,6 @@ var/global/datum/controller/gameticker/ticker
 			if (S.name != "AI")
 				cdel(S)
 		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
-		//world << sound('sound/AI/welcome.ogg') // Skie
 		//Holiday Round-start stuff	~Carn
 		Holiday_Game_Start()
 
@@ -274,7 +273,13 @@ var/global/datum/controller/gameticker/ticker
 					blackbox.save_all_data_to_sql()
 
 				if(!delay_end)
-					sleep(restart_timeout)
+					sleep(restart_timeout - 70)
+					to_chat(world, "\red <B>Restarting world...</B>")
+					world << sound(pick('sound/roundend/good_is_dumb.ogg','sound/roundend/hell_march.ogg','sound/roundend/MonstersWithin.ogg',
+										'sound/roundend/MonstersWithin1.ogg','sound/roundend/MonstersWithout.ogg','sound/roundend/MonstersWithout1.ogg',
+										'sound/roundend/outstanding_marines.ogg','sound/roundend/surrounded_by_assholes.ogg','sound/roundend/DeathWish.ogg',
+										'sound/roundend/Seinfeld.ogg','sound/roundend/TeamFortress.ogg','sound/roundend/The_Flames_of_Love.ogg'),volume=25)
+					sleep(70)
 					if(!delay_end)
 						world.Reboot()
 					else

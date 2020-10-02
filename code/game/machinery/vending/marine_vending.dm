@@ -115,8 +115,10 @@
 					/obj/item/weapon/gun/rifle/m41a = 20,
 					/obj/item/weapon/gun/shotgun/pump = 10,
 					/obj/item/device/motiondetector = 4,
+					/obj/item/weapon/shield/montage/marine = 6,
 					// /obj/item/weapon/gun/shotgun/combat = 1,
 					/obj/item/explosive/mine = 2,
+					/obj/item/weapon/shield/montage/marine = 4,
 					/obj/item/storage/box/nade_box = 2,
 					/obj/item/explosive/grenade/frag/m15 = 2,
 					/obj/item/explosive/grenade/incendiary = 4,
@@ -124,7 +126,10 @@
 					/obj/item/explosive/grenade/cloakbomb = 3,
 					/obj/item/storage/box/m94 = 30,
 					/obj/item/device/flashlight/combat = 5,
-					/obj/item/clothing/mask/gas = 10
+					/obj/item/clothing/mask/gas = 10,
+					/obj/item/storage/kit/Heavy_Support = 1,
+					/obj/item/storage/kit/Pursuit = 3,
+					/obj/item/storage/kit/Saiga = 2,
 					)
 
 	contraband = list(
@@ -134,6 +139,7 @@
 					/obj/item/weapon/gun/rifle/m41aMK1 = 0,
 					/obj/item/weapon/gun/rifle/m41a/elite = 0,
 					/obj/item/weapon/gun/rifle/lmg = 0,
+					// /obj/item/weapon/gun/rifle/ak = 4,
 					/obj/item/explosive/grenade/frag = 0,
 					/obj/item/explosive/grenade/phosphorus = 0,
 					/obj/item/weapon/gun/pistol/holdout = 0,
@@ -147,7 +153,8 @@
 					/obj/item/weapon/gun/smg/mp7 = 0,
 					/obj/item/weapon/gun/smg/skorpion = 0,
 					/obj/item/weapon/gun/smg/uzi = 0,
-					/obj/item/weapon/gun/smg/p90 = 0
+					/obj/item/weapon/gun/smg/p90 = 0,
+					// /obj/item/storage/kit/ak = 1
 					)
 	premium = list()
 
@@ -189,6 +196,7 @@
 					/obj/item/ammobox/m39ext = 1,
 					/obj/item/ammo_magazine/smg/m39/extended = 5,
 					/obj/item/ammobox = 3,
+					/obj/item/ammo_magazine/l42a = 15,
 					/obj/item/ammo_magazine/rifle = 15,
 					/obj/item/ammobox/ext = 1,
 					/obj/item/ammo_magazine/rifle/extended = 5,
@@ -215,6 +223,9 @@
 					/obj/item/ammo_magazine/rifle/incendiary = 0,
 					/obj/item/ammo_magazine/rifle/m41aMK1 = 0,
 					/obj/item/ammo_magazine/rifle/lmg = 0,
+					// /obj/item/ammo_magazine/rifle/ak = 20,
+					// /obj/item/ammo_magazine/rifle/ak/ap = 15,
+					// /obj/item/ammo_magazine/rifle/ak/incendiary = 10,
 					/obj/item/ammo_magazine/pistol/hp = 0,
 					/obj/item/ammo_magazine/pistol/heavy = 0,
 					/obj/item/ammo_magazine/pistol/holdout = 0,
@@ -583,6 +594,7 @@
 
 						/obj/item/attachable/attached_gun/grenade = 5,
 						/obj/item/attachable/attached_gun/shotgun = 3,
+						/obj/item/attachable/attached_gun/laser_targeting = 2,
 						/obj/item/attachable/attached_gun/flamer = 3
 					)
 

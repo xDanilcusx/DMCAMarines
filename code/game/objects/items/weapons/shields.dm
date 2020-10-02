@@ -46,7 +46,7 @@
 	var/active = 0
 
 /obj/item/weapon/shield/montage
-	name = "Montage"
+	name = "N30 montage shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
 	icon = 'icons/obj/items/weapons.dmi'
 	icon_state = "metal"

@@ -27,7 +27,7 @@
 	var/list/squads = new()
 
 	var/dat = {"
-	<head><style>
+	[UTF_CHARSET]<head><style>
 		.manifest {border-collapse:collapse;}
 		.manifest td, th {border:1px solid [monochrome?"black":"#DEF; background-color:white; color:black"]; padding:.25em}
 		.manifest th {height: 2em; [monochrome?"border-top-width: 3px":"background-color: #48C; color:white"]}
@@ -63,7 +63,7 @@
 		if(real_rank in ROLES_COMMAND)
 			heads[name] = rank
 			department = 1
-		if(real_rank in ROLES_ENGINEERING)
+		if(real_rank in ROLES_LOGISTICS)
 			eng[name] = rank
 			department = 1
 		if(real_rank in ROLES_MEDICAL)
@@ -145,7 +145,7 @@ var/global/list/PDA_Manifest = list()
 			if(rank=="Commander" && heads.len != 1)
 				heads.Swap(1,heads.len)
 
-		if(real_rank in ROLES_ENGINEERING)
+		if(real_rank in ROLES_LOGISTICS)
 			eng[++eng.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			if(depthead && eng.len != 1)

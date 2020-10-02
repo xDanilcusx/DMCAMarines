@@ -168,6 +168,8 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
+		if(stat == DEAD)
+			return
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 25, 1)
 		for(var/mob/O in viewers(src, null))
@@ -940,6 +942,7 @@
 		to_chat(src, "<spawn class='warning'>You feel nauseous...")
 		spawn(150)	//15 seconds until second warning
 			to_chat(src, "<spawn class='warning'>You feel like you are about to throw up!")
+			heartpounce()
 			spawn(100)	//and you have 10 more for mad dash to the bucket
 				Stun(5)
 				if(stat == 2) //One last corpse check
@@ -1183,6 +1186,7 @@
 					if(3)
 						msg ="<span class='warning'>[O] in your [organ.display_name] twists painfully as you move.</span>"
 				to_chat(src, msg)
+				heartbeating(src)
 
 				organ.take_damage(rand(1,2), 0, 0)
 				if(!(organ.status & LIMB_ROBOT) && !(species.flags & NO_BLOOD)) //There is no blood in protheses.

@@ -190,7 +190,9 @@
 						/obj/item/reagent_container/hypospray/autoinjector = "helmet_snack_eat",
 						/obj/item/reagent_container/food/snacks/packaged_burrito = "helmet_snack_burrito",
 						/obj/item/clothing/glasses/mgoggles = "goggles",
-						/obj/item/clothing/glasses/mgoggles/prescription = "goggles")
+						/obj/item/clothing/glasses/mgoggles/prescription = "goggles",
+						/obj/item/stack/medical/bruise_pack = "helmet_snack_eat",
+						/obj/item/stack/medical/ointment = "helmet_snack_eat")
 
 
 /obj/item/clothing/head/helmet/marine/New(loc,expected_type 		= /obj/item/clothing/head/helmet/marine,
@@ -202,8 +204,8 @@
 	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 2
 	pockets.max_w_class = 1 //can hold tiny items only, EXCEPT for glasses & metal flask.
-	pockets.bypass_w_limit = list("/obj/item/clothing/glasses", "/obj/item/reagent_container/food/drinks/flask")
-	pockets.max_storage_space = 3
+	pockets.bypass_w_limit = list("/obj/item/clothing/glasses", "/obj/item/reagent_container/food/drinks/flask", "/obj/item/stack/medical/bruise_pack", "/obj/item/stack/medical/ointment")
+	pockets.max_storage_space = 4
 
 	camera = new /obj/machinery/camera(src)
 	camera.network = list("LEADER")

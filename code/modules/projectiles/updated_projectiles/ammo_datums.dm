@@ -684,7 +684,7 @@
 	name = "sniper bullet"
 	damage_falloff = 0
 	iff_signal = ACCESS_IFF_MARINE
-	flags_ammo_behavior = AMMO_BALLISTIC|AMMO_SNIPER|AMMO_SKIPS_HUMANS
+	flags_ammo_behavior = AMMO_BALLISTIC|AMMO_SKIPS_HUMANS|AMMO_SNIPER
 	accurate_range_min = 10
 
 /datum/ammo/bullet/sniper/New()
@@ -701,7 +701,7 @@
 	accuracy = 0
 	damage_type = BURN
 	iff_signal = ACCESS_IFF_MARINE
-	flags_ammo_behavior = AMMO_BALLISTIC|AMMO_INCENDIARY|AMMO_SNIPER|AMMO_SKIPS_HUMANS
+	flags_ammo_behavior = AMMO_BALLISTIC|AMMO_INCENDIARY|AMMO_SKIPS_HUMANS|AMMO_SNIPER
 
 /datum/ammo/bullet/sniper/incendiary/New()
 	..()
@@ -1043,6 +1043,7 @@
 	name = "white phosphorous rocket"
 	flags_ammo_behavior = AMMO_ROCKET|AMMO_INCENDIARY|AMMO_EXPLOSIVE
 	damage_type = BURN
+
 /datum/ammo/rocket/wp/New()
 	..()
 	accuracy_var_low = config.med_proj_variance
@@ -1057,7 +1058,7 @@
 	smoke.start()
 	if(locate(/obj/flamer_fire) in T)
 		return
-	new /obj/flamer_fire(T, pick(15, 20, 25, 30))
+	new /obj/flamer_fire(T, pick(15, 20, 25, 30), 50, "blue", 2)
 	for(var/mob/living/carbon/M in range(3, T))
 		if(isXeno(M))
 			var/mob/living/carbon/Xenomorph/X = M

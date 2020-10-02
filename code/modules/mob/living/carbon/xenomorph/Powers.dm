@@ -1076,6 +1076,8 @@
 	var/wait_time = 5
 	if(caste == "Drone")
 		wait_time = 10
+	if(selected_resin == "sunken colony" || selected_resin == "wither flower")
+		wait_time *= 6
 
 	if(!do_after(src, wait_time, TRUE, 5, BUSY_ICON_BUILD))
 		return
@@ -1118,6 +1120,27 @@
 			to_chat(src, "<span class='warning'>Resin doors need a wall or resin door next to them to stand up.</span>")
 			return
 
+	if(selected_resin == "sunken colony" || selected_resin == "wither flower")
+		var/datum/hive_status/hive = hive_datum[hivenumber]
+		if(locate(/mob/living/carbon/human) in range(world.view + 1, src))
+			to_chat(src, "<span class='xenowarning'>It doesn't feel safe to grow it here...</span>")
+			return
+		if(src.z == 3 || istype(get_turf(src), /turf/open/floor/plating/almayer) || istype(get_turf(src), /turf/open/shuttle))
+			to_chat(src, "<span class='warning'>You can't do that here.</span>")
+			return
+		switch(selected_resin)
+			if("sunken colony")
+				if(hive.xeno_buildings[SUNKEN_COLONY].len >= 20)
+					to_chat(src, "<span class='xenowarning'>Hive cannot sustain more sunken colonies!</span>")
+					return
+				if(locate(/obj/structure/alien/sunken) in range(6))
+					to_chat(src, "<span class='xenodanger'>Nearby colony angrily lashing out on your attempts to grow another one!</span>")
+					return
+			if("wither flower")
+				if(locate(/obj/structure/alien/healer) in range(10))
+					to_chat(src, "<span class='xenowarning'>You can't grow another flower too close to another.</span>")
+					return
+
 	use_plasma(resin_plasma_cost)
 	visible_message("<span class='xenonotice'>\The [src] regurgitates a thick substance and shapes it into \a [selected_resin]!</span>", \
 	"<span class='xenonotice'>You regurgitate some resin and shape it into \a [selected_resin].</span>", null, 5)
@@ -1141,6 +1164,10 @@
 			new_resin = new /obj/structure/bed/nest(current_turf)
 		if("sticky resin")
 			new_resin = new /obj/effect/alien/resin/sticky(current_turf)
+		if("sunken colony")
+			new_resin = new /obj/structure/alien/sunken(current_turf)
+		if("wither flower")
+			new_resin = new /obj/structure/alien/healer(current_turf)
 
 	new_resin.add_hiddenprint(src) //so admins know who placed it
 
@@ -1316,6 +1343,16 @@
 	var/larva_count = 0
 	var/stored_larva_count = ticker.mode.stored_larva
 	var/leader_list = ""
+	var/lessers_count = 0
+	var/facehugger_list = ""
+	var/facehugger_count = 0
+
+	if(!istype(user))
+		var/datum/hive_status/hive = hive_datum[XENO_HIVE_NORMAL]
+		lessers_count = hive.xeno_lessers_list.len
+	else if(user.hivenumber != 0 && user.hivenumber <= hive_datum.len)
+		var/datum/hive_status/hive = hive_datum[user.hivenumber]
+		lessers_count = hive.xeno_lessers_list.len
 
 	for(var/mob/living/carbon/Xenomorph/X in living_mob_list)
 		if(X.z == ADMIN_Z_LEVEL) continue //don't show xenos in the thunderdome when admins test stuff.
@@ -1396,6 +1433,9 @@
 			if("Bloody Larva") // all larva are caste = blood larva
 				if(leader == "") larva_list += xenoinfo
 				larva_count++
+			if("Facehugger")
+				if(leader == "") facehugger_list += xenoinfo
+				facehugger_count++
 
 	dat += "<b>Total Living Sisters: [count]</b><BR>"
 	//if(exotic_count != 0) //Exotic Xenos in the Hive like Predalien or Xenoborg
@@ -1403,12 +1443,14 @@
 	dat += "<b>Tier 3: [boiler_count + crusher_count + praetorian_count + ravager_count] Sisters</b> | Boilers: [boiler_count] | Crushers: [crusher_count] | Praetorians: [praetorian_count] | Ravagers: [ravager_count]<BR>"
 	dat += "<b>Tier 2: [carrier_count + hivelord_count + hunter_count + spitter_count + warrior_count] Sisters</b> | Carriers: [carrier_count] | Hivelords: [hivelord_count] | Warriors: [warrior_count] | Lurkers: [hunter_count] | Spitters: [spitter_count]<BR>"
 	dat += "<b>Tier 1: [drone_count + runner_count + sentinel_count + defender_count] Sisters</b> | Drones: [drone_count] | Runners: [runner_count] | Sentinels: [sentinel_count] | Defenders: [defender_count]<BR>"
-	dat += "<b>Larvas: [larva_count] Sisters<BR>"
+	dat += "<b>Larvas: [larva_count] Sisters</b><BR>"
+	dat += "<b>Facehuggers: [facehugger_count] Sisters</b><BR>"
 	if(istype(user)) // cover calling it without parameters
 		if(user.hivenumber == XENO_HIVE_NORMAL)
 			dat += "<b>Burrowed Larva: [stored_larva_count] Sisters<BR>"
+	dat +="<b>Lesser Sisters: [lessers_count]</b><BR>"
 	dat += "<table cellspacing=4>"
-	dat += queen_list + leader_list + boiler_list + crusher_list + praetorian_list + ravager_list + carrier_list + hivelord_list + warrior_list + hunter_list + spitter_list + drone_list + runner_list + sentinel_list + defender_list + larva_list
+	dat += queen_list + leader_list + boiler_list + crusher_list + praetorian_list + ravager_list + carrier_list + hivelord_list + warrior_list + hunter_list + spitter_list + drone_list + runner_list + sentinel_list + defender_list + larva_list + facehugger_list
 	dat += "</table></body>"
 	usr << browse(dat, "window=roundstatus;size=500x500")
 

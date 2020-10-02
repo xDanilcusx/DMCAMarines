@@ -143,6 +143,7 @@
 					"/obj/item/ammo_magazine/smg",
 					"/obj/item/ammo_magazine/pistol",
 					"/obj/item/ammo_magazine/revolver",
+					"/obj/item/ammo_magazine/l42a",
 					"/obj/item/ammo_magazine/sniper",
 					"/obj/item/ammo_magazine/handful",
 					)
@@ -365,7 +366,8 @@
 	name = "flare pouch"
 	desc = "A pouch designed to hold flares. Refillable with a M94 flare pack."
 	max_w_class = 2
-	storage_slots = 5
+	storage_slots = 10
+	max_storage_space = 20
 	draw_mode = 1
 	icon_state = "flare"
 	can_hold = list("/obj/item/device/flashlight/flare")
@@ -393,6 +395,11 @@
 		return ..()
 /obj/item/storage/pouch/flare/full/New()
 	..()
+	new /obj/item/device/flashlight/flare(src)
+	new /obj/item/device/flashlight/flare(src)
+	new /obj/item/device/flashlight/flare(src)
+	new /obj/item/device/flashlight/flare(src)
+	new /obj/item/device/flashlight/flare(src)
 	new /obj/item/device/flashlight/flare(src)
 	new /obj/item/device/flashlight/flare(src)
 	new /obj/item/device/flashlight/flare(src)

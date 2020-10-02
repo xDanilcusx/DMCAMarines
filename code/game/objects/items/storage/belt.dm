@@ -271,6 +271,7 @@
 		"/obj/item/ammo_magazine/sniper",
 		"/obj/item/ammo_magazine/handful",
 		"/obj/item/flareround_s",
+		"/obj/item/ammo_magazine/l42a",
 		"/obj/item/flareround_sp",
 		"/obj/item/explosive/grenade",
 		"/obj/item/explosive/mine",
@@ -333,6 +334,21 @@
 	new /obj/item/ammo_magazine/rifle/type71(src)
 	new /obj/item/ammo_magazine/rifle/type71(src)
 
+/obj/item/storage/belt/marine/upp/heavy
+	name = "Type 41 pattern load rig"
+	desc = "The Type 41 load rig is the standard-issue LBE of the UPP military. The primary function of this belt is to provide easy access to mags for the Type 71 during operations. Despite being designed for the Type 71 weapon system, the pouches are modular enough to fit other types of ammo and equipment."
+	icon_state = "upp_belt"
+	item_state = "upp_belt"
+	has_gamemode_skin = FALSE
+
+//version full of AK mags
+/obj/item/storage/belt/marine/upp/heavy/full/New()
+	..()
+	new /obj/item/ammo_magazine/rifle/ak(src)
+	new /obj/item/ammo_magazine/rifle/ak(src)
+	new /obj/item/ammo_magazine/rifle/ak(src)
+	new /obj/item/ammo_magazine/rifle/ak(src)
+	new /obj/item/ammo_magazine/rifle/ak(src)
 
 
 /obj/item/storage/belt/shotgun

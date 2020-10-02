@@ -202,7 +202,7 @@
 
 /obj/item/device/radio/headset/ert
 	name = "W-Y Response Team headset"
-	desc = "The headset of the boss's boss. Channels are as follows: :h - Response Team :c - command, :p - security, :e - engineering, :m - medical."
+	desc = "The headset of the boss's boss. Channels are as follows: :h - Response Team :c - command, :p - security, :e - engineering, :m - medical, :j - JTAC."
 	icon_state = "com_headset"
 	item_state = "headset"
 	freerange = 1
@@ -271,6 +271,11 @@
 	to_chat(usr, "<span class='notice'>You toggle [src]'s headset HUD [headset_hud_on ? "on":"off"].</span>")
 	playsound(src,'sound/machines/click.ogg', 20, 1)
 
+/obj/item/device/radio/headset/almayer/logoff
+	name = "logistics officer's headset"
+	desc = "The headset of the guy who is in charge of slaves. To access the engineering channel, use :e. For supply, use :U. For command, use :v."
+	icon_state = "com_headset"
+	keyslot1 = new /obj/item/device/encryptionkey/logoff
 
 /obj/item/device/radio/headset/almayer/ce
 	name = "chief engineer's headset"
@@ -302,16 +307,22 @@
 	icon_state = "cargo_headset"
 	keyslot1 = new /obj/item/device/encryptionkey/req
 
+/obj/item/device/radio/headset/almayer/log
+	name = "logistics radio headset"
+	desc = "A headset used by LO's kslave(s). To access the supply channel, use :u. For engineering - :e."
+	icon_state = "cargo_headset"
+	keyslot1 = new /obj/item/device/encryptionkey/log
+
 
 /obj/item/device/radio/headset/almayer/cmpcom
 	name = "marine chief MP radio headset"
-	desc = "This is used by the chief MP. Channels are as follows: :v - marine command, :p - military police, :q - alpha squad, :b - bravo squad, :c - charlie squad, :d - delta squad, :m - medbay, :u - requisitions"
+	desc = "This is used by the chief MP. Channels are as follows: :v - marine command, :p - military police, :q - alpha squad, :b - bravo squad, :c - charlie squad, :d - delta squad, :m - medbay, :u - requisitions, :j - JTAC"
 	icon_state = "med_headset"
 	keyslot1 = new /obj/item/device/encryptionkey/cmpcom
 
 /obj/item/device/radio/headset/almayer/mcom
 	name = "marine command radio headset"
-	desc = "This is used by the marine command. Channels are as follows: :v - marine command, :q - alpha squad, :b - bravo squad, :c - charlie squad, :d - delta squad, :m - medbay, :u - requisitions"
+	desc = "This is used by the marine command. Channels are as follows: :v - marine command, :q - alpha squad, :b - bravo squad, :c - charlie squad, :d - delta squad, :m - medbay, :u - requisitions, :j - JTAC"
 	icon_state = "med_headset"
 	keyslot1 = new /obj/item/device/encryptionkey/mcom
 
@@ -332,7 +343,7 @@
 
 /obj/item/device/radio/headset/almayer/marine/alpha/lead
 	name = "marine alpha leader radio headset"
-	desc = "This is used by the marine alpha squad leader. Channels are as follows: :v - marine command, :z - general chat."
+	desc = "This is used by the marine alpha squad leader. Channels are as follows: :v - marine command, :z - general chat, :j - JTAC."
 	keyslot2 = new /obj/item/device/encryptionkey/squadlead
 
 /obj/item/device/radio/headset/almayer/marine/alpha/engi
@@ -355,7 +366,7 @@
 
 /obj/item/device/radio/headset/almayer/marine/bravo/lead
 	name = "marine bravo leader radio headset"
-	desc = "This is used by the marine bravo squad leader. Channels are as follows: :v - marine command, :z - general chat."
+	desc = "This is used by the marine bravo squad leader. Channels are as follows: :v - marine command, :z - general chat, :j - JTAC."
 	keyslot2 = new /obj/item/device/encryptionkey/squadlead
 
 /obj/item/device/radio/headset/almayer/marine/bravo/engi
@@ -378,7 +389,7 @@
 
 /obj/item/device/radio/headset/almayer/marine/charlie/lead
 	name = "marine charlie leader radio headset"
-	desc = "This is used by the marine charlie squad leader. Channels are as follows: :v - marine command, :z - general chat."
+	desc = "This is used by the marine charlie squad leader. Channels are as follows: :v - marine command, :z - general chat, :j - JTAC."
 	keyslot2 = new /obj/item/device/encryptionkey/squadlead
 
 /obj/item/device/radio/headset/almayer/marine/charlie/engi
@@ -401,7 +412,7 @@
 
 /obj/item/device/radio/headset/almayer/marine/delta/lead
 	name = "marine delta leader radio headset"
-	desc = "This is used by the marine delta squad leader. Channels are as follows: :v - marine command, :z - general chat."
+	desc = "This is used by the marine delta squad leader. Channels are as follows: :v - marine command, :z - general chat, :j - JTAC."
 	keyslot2 = new /obj/item/device/encryptionkey/squadlead
 
 /obj/item/device/radio/headset/almayer/marine/delta/engi

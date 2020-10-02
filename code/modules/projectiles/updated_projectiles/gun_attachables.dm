@@ -1,4 +1,3 @@
-
 //Gun attachable items code. Lets you add various effects to firearms.
 //Some attachables are hardcoded in the projectile firing system, like grenade launchers, flamethrowers.
 /*
@@ -9,10 +8,8 @@ To summarize: rail attachments should go on top of the rail. For rifles, this us
 For handguns, this is usually toward the back of the gun. SMGs usually follow rifles.
 Muzzle attachments should connect to the barrel, not sit under or above it. The only exception is the bayonet.
 Underrail attachments should just fit snugly, that's about it. Stocks are pretty obvious.
-
 All attachment offsets are now in a list, including stocks. Guns that don't take attachments can keep the list null.
 ~N
-
 Defined in conflicts.dm of the #defines folder.
 #define ATTACH_REMOVABLE	1
 #define ATTACH_ACTIVATION	2
@@ -431,9 +428,6 @@ obj/item/attachable/attack_hand(var/mob/user as mob)
 		A.update_button_icon()
 	return TRUE
 
-
-
-
 /obj/item/attachable/flashlight/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/tool/screwdriver))
 		to_chat(user, "<span class='notice'>You modify the rail flashlight back into a normal flashlight.</span>")
@@ -447,8 +441,6 @@ obj/item/attachable/attack_hand(var/mob/user as mob)
 		cdel(src) //Delete da old flashlight
 	else
 		return ..()
-
-
 
 /obj/item/attachable/quickfire
 	name = "quickfire adapter"
@@ -1105,4 +1097,3 @@ obj/item/attachable/attack_hand(var/mob/user as mob)
 
 	accuracy_unwielded_mod = -config.med_hit_accuracy_mult
 	scatter_unwielded_mod = config.med_scatter_value
-

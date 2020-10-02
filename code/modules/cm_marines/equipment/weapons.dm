@@ -310,8 +310,8 @@
 		spawn(1)
 			new /obj/item/clothing/suit/storage/marine/M40(src)
 			new /obj/item/clothing/head/helmet/marine/M40(src)
-			new /obj/item/weapon/shield/montage(src)
 			new /obj/item/weapon/gun/pistol/vp70(src)
+			new /obj/item/weapon/gun/shotgun/combat(src)
 			new /obj/item/ammo_magazine/pistol/vp70(src)
 			new /obj/item/ammo_magazine/pistol/vp70(src)
 			new /obj/item/ammo_magazine/pistol/vp70(src)
@@ -338,9 +338,6 @@
 			new /obj/item/clothing/suit/storage/marine/M3T(src)
 			new /obj/item/clothing/head/helmet/marine(src)
 			new /obj/item/weapon/gun/launcher/rocket(src)
-			new /obj/item/ammo_magazine/rocket/ap(src)
-			new /obj/item/ammo_magazine/rocket/ap(src)
-			new /obj/item/ammo_magazine/rocket/ap(src)
 			new /obj/item/ammo_magazine/rocket/wp(src)
 			new /obj/item/ammo_magazine/rocket/wp(src)
 			new /obj/item/explosive/mine(src)
@@ -348,7 +345,7 @@
 			new /obj/item/explosive/plastique(src)
 			new /obj/item/explosive/plastique(src)
 			new /obj/item/storage/pouch/rpg/full(src)
-
+			new /obj/item/storage/pouch/rpg/full_ap(src)
 
 
 /obj/item/storage/box/spec/sniper
@@ -399,7 +396,7 @@
 	icon = 'icons/Marine/marine-weapons.dmi'
 	icon_state = "sniper_case"
 	w_class = 5
-	storage_slots = 15
+	storage_slots = 16
 	slowdown = 1
 	can_hold = list() //Nada. Once you take the stuff out it doesn't fit back in.
 	foldable = null
@@ -427,6 +424,7 @@
 			new /obj/item/storage/backpack/marine/satchel/scout_cloak(src)
 			new /obj/item/explosive/plastique(src)
 			new /obj/item/explosive/plastique(src)
+			new /obj/item/clothing/glasses/night(src)
 
 
 

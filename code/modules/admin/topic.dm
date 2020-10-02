@@ -442,7 +442,7 @@
 
 
 	//Engineering (Yellow)
-		counter = 0
+/*		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(ROLES_ENGINEERING)]'><a href='?src=\ref[src];jobban3=engineeringdept;jobban4=\ref[M]'>Engineering Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in ROLES_ENGINEERING)
@@ -461,12 +461,12 @@
 				jobs += "</tr><tr align='center'>"
 				counter = 0
 		jobs += "</tr></table>"
-
-	//Cargo (Yellow) //Copy paste, yada, yada. Hopefully Snail can rework this in the future.
+*/
+	//Cargo (Yellow) //Copy paste, yada, yada. Hopefully Snail can rework this in the future. //НЕ ЗНАЮ НИКАКОГО СНЕЙЛА, ТЕПЕРЬ ЭТО ЛОГИСТИКС ДАНЖЕН
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(ROLES_REQUISITION)]'><a href='?src=\ref[src];jobban3=cargodept;jobban4=\ref[M]'>Requisition Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in ROLES_REQUISITION)
+		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(ROLES_LOGISTICS)]'><a href='?src=\ref[src];jobban3=cargodept;jobban4=\ref[M]'>Logistics Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in ROLES_LOGISTICS)
 			if(!jobPos)	continue
 			var/datum/job/job = RoleAuthority.roles_by_name[jobPos]
 			if(!job) continue
@@ -633,14 +633,14 @@
 					var/datum/job/temp = RoleAuthority.roles_by_name[jobPos]
 					if(!temp) continue
 					joblist += temp.title
-			if("engineeringdept")
-				for(var/jobPos in ROLES_ENGINEERING)
-					if(!jobPos)	continue
-					var/datum/job/temp = RoleAuthority.roles_by_name[jobPos]
-					if(!temp) continue
-					joblist += temp.title
+//			if("engineeringdept")
+//				for(var/jobPos in ROLES_ENGINEERING)
+//					if(!jobPos)	continue
+//					var/datum/job/temp = RoleAuthority.roles_by_name[jobPos]
+//					if(!temp) continue
+//					joblist += temp.title
 			if("cargodept")
-				for(var/jobPos in ROLES_REQUISITION)
+				for(var/jobPos in ROLES_LOGISTICS)
 					if(!jobPos)	continue
 					var/datum/job/temp = RoleAuthority.roles_by_name[jobPos]
 					if(!temp) continue
@@ -1514,6 +1514,27 @@
 				to_chat(X, "<b>ADMINS/MODS: \red [src.owner] replied to [key_name(H)]'s USCM message with: \blue \"[input]\"</b>")
 		to_chat(H, "\red You hear something crackle in your headset before a voice speaks, \"Please stand by for a message from USCM:\" \blue <b>\"[input]\"</b>")
 
+	else if(href_list["AIReply"])
+		var/mob/living/carbon/human/H = locate(href_list["AIReply"])
+
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			return
+
+		//unanswered_distress -= H
+
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via AI terminal.","Inquiry reply from ship's AI", "")
+		if(!input)	return
+
+		to_chat(src.owner, "You sent [input] to [H] via AI terminal.")
+		log_admin("[src.owner] replied to [key_name(H)]'s AI inquiry with the message [input].")
+		for(var/client/X in admins)
+			if((R_ADMIN|R_MOD) & X.holder.rights)
+				to_chat(X, "<b>ADMINS/MODS: \red [src.owner] replied to [key_name(H)]'s AI inquiry with: \blue \"[input]\"</b>")
+		for(var/obj/machinery/computer/AI_terminal/A in machines)
+			A.visible_message("A message suddenly appears on [A]'s screen: <font color='#009900'><b>\"[input]\"</b></font>")
+			playsound(A, A.soundloop, 25, 1)
+
 	else if(href_list["SyndicateReply"])
 		var/mob/living/carbon/human/H = locate(href_list["SyndicateReply"])
 		if(!istype(H))
@@ -1533,7 +1554,7 @@
 	else if(href_list["CentcommFaxView"])
 		var/info = locate(href_list["CentcommFaxView"])
 
-		usr << browse("<HTML><HEAD><TITLE>Liaison Fax Message</TITLE></HEAD><BODY>[info]</BODY></HTML>", "window=Fax Message")
+		usr << browse("<HTML>[UTF_CHARSET]<HEAD><TITLE>Liaison Fax Message</TITLE></HEAD><BODY>[info]</BODY></HTML>", "window=Fax Message")
 
 	else if(href_list["USCMFaxReply"])
 		var/mob/living/carbon/human/H = locate(href_list["USCMFaxReply"])

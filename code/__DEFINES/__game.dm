@@ -145,7 +145,7 @@ These are used with cdel (clean delete). For example, cdel(atom, TA_REVIVE_ME) w
 //Alarm levels.
 #define ALARM_WARNING_FIRE 	1
 #define ALARM_WARNING_ATMOS	2
-#define ALARM_WARNING_EVAC	4
+#define ALARM_WARNING_RED	4
 #define ALARM_WARNING_READY	8
 #define ALARM_WARNING_DOWN	16
 
@@ -205,3 +205,6 @@ var/static/list/scarySounds = list('sound/weapons/thudswoosh.ogg','sound/weapons
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Arial Black"
 #define SCROLL_SPEED 2
+
+//HTML fix
+#define UTF_CHARSET "<meta charset=\"utf-8\">"

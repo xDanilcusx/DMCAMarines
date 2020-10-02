@@ -279,7 +279,7 @@
 	if(named)
 		to_chat(usr, "<span class='warning'>Tank was already named!</span>")
 		return
-	var/nickname = copytext(sanitize(input(usr, "Name your tank (20 symbols, without \"\", they will be added), russian symbols won't be seen", "Naming", null) as text),1,20)
+	var/nickname = copytext_char(sanitize(input(usr, "Name your tank (20 symbols, without \"\", they will be added)", "Naming", null) as text),1,20)
 	if(!nickname)
 		to_chat(usr, "<span class='warning'>No text entered!</span>")
 		return
@@ -430,6 +430,8 @@
 //Two seats, gunner and driver
 //Must have the skills to do so
 /obj/vehicle/multitile/root/cm_armored/tank/handle_player_entrance(var/mob/M)
+	set waitfor = 0
+
 	var/loc_check = M.loc
 	var/slot = input("Select a seat") in list("Driver", "Gunner")
 
@@ -437,6 +439,9 @@
 
 	if(!M.mind || !(!M.mind.cm_skills || M.mind.cm_skills.large_vehicle >= SKILL_LARGE_VEHICLE_TRAINED))
 		to_chat(M, "<span class='notice'>You have no idea how to operate this thing.</span>")
+		return
+
+	if(M == gunner || M == driver)
 		return
 
 	to_chat(M, "<span class='notice'>You start climbing into [src].</span>")
@@ -461,6 +466,9 @@
 				return
 			driver = M
 			M.Move(src)
+			if(driver.loc != src)
+				driver = null
+				return
 			if(loc_check == entrance.loc)
 				to_chat(M, "<span class='notice'>You enter the driver's seat.</span>")
 			else
@@ -491,6 +499,9 @@
 			gunner = M
 			//M.loc = src
 			M.Move(src)
+			if(gunner.loc != src)
+				gunner = null
+				return
 			deactivate_binos(gunner)
 			if(loc_check == entrance.loc)
 				to_chat(M, "<span class='notice'>You enter the driver's seat.</span>")

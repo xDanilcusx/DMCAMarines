@@ -30,6 +30,7 @@
 	vision_impair = 0
 	unacidable = 1
 	anti_hug = 100
+	var/zooming = FALSE
 
 /obj/item/clothing/mask/gas/yautja/New(location, mask_number = rand(1,7), elder_restricted = 0)
 	..()
@@ -193,7 +194,7 @@
 	desc = "A suit of armor with heavy padding. It looks old, yet functional."
 	icon_state = "fullarmor"
 	flags_armor_protection = UPPER_TORSO|LOWER_TORSO|ARMS
-	armor = list(melee = 90, bullet = 95, laser = 75, energy = 75, bomb = 75, bio = 25, rad = 25)
+	armor = list(melee = 115, bullet = 120, laser = 95, energy = 95, bomb = 115, bio = 40, rad = 45)
 	slowdown = 1
 
 /obj/item/clothing/suit/armor/yautja/full/New(location)
@@ -319,9 +320,11 @@
 	if(cloak_timer)
 		cloak_timer--
 	if(cloaked)
-		H.alpha = 10
+		H.alpha = 1
 		charge = max(charge - 10, 0)
 		if(charge <= 0)
+			decloak(loc)
+		if(H.on_fire)
 			decloak(loc)
 	else
 		charge = min(charge + 30, charge_max)
@@ -545,17 +548,7 @@
 		return
 
 	if(exploding)
-		if(alert("Are you sure you want to stop the countdown?","Bracers", "Yes", "No") == "Yes")
-			if(M.gloves != src)
-				return
-			if(M.stat == DEAD)
-				to_chat(M, "<span class='warning'>Little too late for that now!</span>")
-				return
-			if(!M.stat == CONSCIOUS)
-				to_chat(M, "<span class='warning'>Not while you're unconcious...</span>")
-				return
-			exploding = 0
-			to_chat(M, "<span class='notice'>Your bracers stop beeping.</span>")
+		to_chat(M, "<span class='notice'>No.</span>")
 		return
 	if((M.wear_mask && istype(M.wear_mask,/obj/item/clothing/mask/facehugger)) || M.status_flags & XENO_HOST)
 		to_chat(M, "<span class='warning'>Strange...something seems to be interfering with your bracer functions...</span>")
@@ -650,26 +643,26 @@
 	if(!msg || !usr.client) return
 
 	msg = sanitize(msg)
-	msg = oldreplacetext(msg, "a", "@")
-	msg = oldreplacetext(msg, "e", "3")
+	msg = oldreplacetext(msg, "Ð°", "@")
+	msg = oldreplacetext(msg, "Ðµ", "3")
 	msg = oldreplacetext(msg, "i", "1")
-	msg = oldreplacetext(msg, "o", "0")
+	msg = oldreplacetext(msg, "Ð¾", "0")
 	msg = oldreplacetext(msg, "u", "^")
 	msg = oldreplacetext(msg, "y", "7")
 	msg = oldreplacetext(msg, "r", "9")
-	msg = oldreplacetext(msg, "s", "5")
+	msg = oldreplacetext(msg, "Ð¿", "5")
 	msg = oldreplacetext(msg, "t", "7")
 	msg = oldreplacetext(msg, "l", "1")
 	msg = oldreplacetext(msg, "n", "*")
-	msg = oldreplacetext(msg, "à", "@")
-	msg = oldreplacetext(msg, "å", "3")
-	msg = oldreplacetext(msg, "û", "1")
-	msg = oldreplacetext(msg, "î", "0")
-	msg = oldreplacetext(msg, "ó", "7")
-	msg = oldreplacetext(msg, "ð", "9")
-	msg = oldreplacetext(msg, "ñ", "5")
-	msg = oldreplacetext(msg, "ò", "3")
-	msg = oldreplacetext(msg, "í", "*")
+	msg = oldreplacetext(msg, "ï¿½", "@")
+	msg = oldreplacetext(msg, "ï¿½", "3")
+	msg = oldreplacetext(msg, "ï¿½", "1")
+	msg = oldreplacetext(msg, "ï¿½", "0")
+	msg = oldreplacetext(msg, "ï¿½", "7")
+	msg = oldreplacetext(msg, "ï¿½", "9")
+	msg = oldreplacetext(msg, "ï¿½", "5")
+	msg = oldreplacetext(msg, "ï¿½", "3")
+	msg = oldreplacetext(msg, "ï¿½", "*")
 	   //Preds now speak in bastardized 1337speak BECAUSE.
 
 	spawn(10)
@@ -677,7 +670,7 @@
 		var/mob/Q
 		for(Q in hearers(usr))
 			if(Q.stat == 1) continue //Unconscious
-			if(isXeno(Q) && upgrades != 2) continue
+			if(isXeno(Q) && upgrades != 1) continue
 			to_chat(Q, "<span class='info'>A strange voice says,</span> <span class='rough'>'[msg]'.</span>")
 
 //=================//\\=================\\

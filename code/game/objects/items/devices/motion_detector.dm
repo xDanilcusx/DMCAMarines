@@ -1,4 +1,4 @@
-
+/*
 #define MOTION_DETECTOR_LONG	0
 #define MOTION_DETECTOR_SHORT	1
 
@@ -104,7 +104,7 @@
 			show_blip(human_user, M)
 
 		if(detected)
-			playsound(loc, 'sound/items/tick.ogg', 50, 0, 7, 2)
+			playsound(loc, 'sound/items/newtick.ogg', 25, 0, 7, 2)
 
 /obj/item/device/motiondetector/proc/show_blip(mob/user, mob/target)
 	set waitfor = 0
@@ -141,3 +141,4 @@
 		sleep(12)
 		if(user.client)
 			user.client.screen -= DB
+*/

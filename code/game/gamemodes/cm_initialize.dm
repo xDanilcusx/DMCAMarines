@@ -55,7 +55,7 @@ Additional game mode variables.
 	var/marine_starting_num = 0 //number of players not in something special
 	var/pred_current_num 	= 0 //How many are there now?
 	var/pred_maximum_num 	= 2 //How many are possible per round? Does not count elders.
-	var/pred_round_chance 	= 20 //%
+	var/pred_round_chance 	= 30 //%
 
 	//Some gameplay variables.
 	var/round_checkwin 		= 0
@@ -977,6 +977,7 @@ datum/game_mode/proc/initialize_special_clamps()
 
 					/obj/item/attachable/attached_gun/grenade = round(scale * 10),
 					/obj/item/attachable/attached_gun/shotgun = round(scale * 4),
+					/obj/item/attachable/attached_gun/laser_targeting = round(scale * 3),
 					/obj/item/attachable/attached_gun/flamer = round(scale * 4)
 					)
 
@@ -1036,6 +1037,9 @@ datum/game_mode/proc/initialize_special_clamps()
 						/obj/item/ammo_magazine/pistol/holdout = 0,
 						/obj/item/ammo_magazine/pistol/highpower = 0,
 						/obj/item/ammo_magazine/pistol/vp70 = 0,
+						// /obj/item/ammo_magazine/rifle/ak = round(scale * 20),
+						// /obj/item/ammo_magazine/rifle/ak/ap = round(scale * 15),
+						// /obj/item/ammo_magazine/rifle/ak/incendiary = round(scale * 10),
 						/obj/item/ammo_magazine/revolver/small = 0,
 						/obj/item/ammo_magazine/revolver/cmb = 0,
 						/obj/item/ammo_magazine/smg/mp7 = 0,
@@ -1083,6 +1087,7 @@ datum/game_mode/proc/initialize_special_clamps()
 						/obj/item/weapon/gun/shotgun/pump = round(scale * 10),
 						/obj/item/weapon/gun/rifle/saiga = round(scale * 5),
 						/obj/item/device/motiondetector = round(scale * 4),
+						/obj/item/weapon/shield/montage/marine = round(scale * 6),
 						// /obj/item/weapon/gun/shotgun/combat = round(scale * 1),
 						/obj/item/explosive/mine = round(scale * 2),
 						/obj/item/storage/box/nade_box = round(scale * 2),
@@ -1092,7 +1097,11 @@ datum/game_mode/proc/initialize_special_clamps()
 						/obj/item/explosive/grenade/cloakbomb = round(scale * 3),
 						/obj/item/storage/box/m94 = round(scale * 30),
 						/obj/item/device/flashlight/combat = round(scale * 5),
-						/obj/item/clothing/mask/gas = round(scale * 10)
+						/obj/item/clothing/mask/gas = round(scale * 10),
+						/obj/item/storage/kit/Heavy_Support = 1,
+						/obj/item/storage/kit/Pursuit = 3,
+						/obj/item/storage/kit/Saiga = 2
+
 						)
 
 		CG.contraband = list(
@@ -1102,6 +1111,7 @@ datum/game_mode/proc/initialize_special_clamps()
 						/obj/item/weapon/gun/rifle/m41aMK1 = 0,
 						/obj/item/weapon/gun/rifle/m41a/elite = 0,
 						/obj/item/weapon/gun/rifle/lmg = 0,
+						// /obj/item/weapon/gun/rifle/ak = round(scale * 4),
 						/obj/item/explosive/grenade/frag = 0,
 						/obj/item/explosive/grenade/phosphorus = 0,
 						/obj/item/weapon/gun/pistol/holdout = 0,
@@ -1116,6 +1126,7 @@ datum/game_mode/proc/initialize_special_clamps()
 						/obj/item/weapon/gun/smg/skorpion = 0,
 						/obj/item/weapon/gun/smg/uzi = 0,
 						/obj/item/weapon/gun/smg/p90 = 0
+						// /obj/item/storage/kit/ak = 1
 						)
 
 		CG.build_inventory(CG.products)

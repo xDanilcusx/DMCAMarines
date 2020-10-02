@@ -18,8 +18,9 @@
 #define MARINE_CAN_BUY_ESSENTIALS	4096
 #define MARINE_CAN_BUY_ATTACHMENT	8192
 #define MARINE_CAN_BUY_WEBBING		16384
+#define MARINE_CAN_BUY_KIT			32768
 
-#define MARINE_CAN_BUY_ALL			32767
+#define MARINE_CAN_BUY_ALL			65535
 
 #define MARINE_TOTAL_BUY_POINTS		45
 
@@ -298,7 +299,16 @@
 							list("Pistol magazine pouch", 0, /obj/item/storage/pouch/magazine/pistol, (MARINE_CAN_BUY_R_POUCH|MARINE_CAN_BUY_L_POUCH), "black"),
 							list("Pistol pouch", 0, /obj/item/storage/pouch/pistol, (MARINE_CAN_BUY_R_POUCH|MARINE_CAN_BUY_L_POUCH), "black"),
 							list("MASKS", 0, null, null, null),
-							list("Gas mask", 0, /obj/item/clothing/mask/gas, MARINE_CAN_BUY_MASK, "black")
+							list("Gas mask", 0, /obj/item/clothing/mask/gas, MARINE_CAN_BUY_MASK, "black"),
+							list("MARINE KITS (choose 1)", 0, null, null, null),
+							list("M240 Pyrotechnician Support Kit", 0, /obj/item/storage/kit/Pyro, MARINE_CAN_BUY_KIT, "black"),
+							list("JTAC Radio Kit", 0, /obj/item/storage/kit/JTAC, MARINE_CAN_BUY_KIT, "black"),
+							list("Frontline M40 Grenadier kit", 0, /obj/item/storage/kit/grenadier, MARINE_CAN_BUY_KIT, "black"),
+							list("Personal Defense Kit", 0, /obj/item/storage/kit/Personal_Def, MARINE_CAN_BUY_KIT, "black"),
+							list("L42A Sniper Kit", 0, /obj/item/storage/kit/Sniper, MARINE_CAN_BUY_KIT, "black"),
+							list("Combat Technician Support Kit", 0, /obj/item/storage/kit/Engie, MARINE_CAN_BUY_KIT, "black"),
+							list("First Response Medical Support Kit", 0, /obj/item/storage/kit/Medic, MARINE_CAN_BUY_KIT, "black"),
+							list("Veteran Kit", 0, /obj/item/storage/kit/Veteran, MARINE_CAN_BUY_KIT, "black")
 							)
 
 
@@ -789,6 +799,7 @@
 							list("Shotgun stock", 0, /obj/item/attachable/stock/shotgun, MARINE_CAN_BUY_ATTACHMENT, "black"),
 							list("Red-dot sight", 0, /obj/item/attachable/reddot, MARINE_CAN_BUY_ATTACHMENT, "black"),
 							list("Quickfire adapter", 0, /obj/item/attachable/quickfire, MARINE_CAN_BUY_ATTACHMENT, "black"),
+							list("Laser targeting system", 0, /obj/item/attachable/attached_gun/laser_targeting, MARINE_CAN_BUY_ATTACHMENT, "black"),
 
  							)
 
@@ -891,7 +902,7 @@ var/list/available_specialist_sets = list("Scout Set", "Sniper Set", "Demolition
 							list("Flamethrower tank", 6, /obj/item/ammo_magazine/flamer_tank, null, "black"),
 							list("Whistle", 5, /obj/item/device/whistle, null, "black"),
 							list("Advanced firstaid kit", 10, /obj/item/storage/firstaid/adv, null, "orange"),
-							list("M41AE2 heavy pulse rifle", 22, /obj/item/weapon/gun/rifle/lmg, null, "orange"),
+							list("M41AE2 heavy pulse rifle", 23, /obj/item/weapon/gun/rifle/lmg, null, "orange"),
 							list("M41AE2 ammo box (10x24mm)", 8, /obj/item/ammo_magazine/rifle/lmg, null, "black"),
 							list("Tactical binoculars", 12, /obj/item/device/binoculars/tactical, null, "black"),
 
@@ -915,6 +926,7 @@ var/list/available_specialist_sets = list("Scout Set", "Sniper Set", "Demolition
 							list("Quickfire adapter", 0, /obj/item/attachable/quickfire, MARINE_CAN_BUY_ATTACHMENT, "black"),
 							list("Laser sight", 0, /obj/item/attachable/lasersight, MARINE_CAN_BUY_ATTACHMENT, "black"),
 							list("Gyroscopic stabilizer", 0, /obj/item/attachable/gyro, MARINE_CAN_BUY_ATTACHMENT, "black"),
+							list ("Laser targeting system", 0, /obj/item/attachable/attached_gun/laser_targeting, MARINE_CAN_BUY_ATTACHMENT, "black"),
 							)
 
 

@@ -86,7 +86,11 @@
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in player_list)
-				stat("[player.key]", (player.ready)?("(Playing)"):(null))
+				client.prefs.update_future_job() //определяется High-профа игрока
+				var/futurejob = null
+				if(player.client && player.client.prefs && player.client.prefs.choosen_job)
+					futurejob = " as [player.client.prefs.choosen_job]"
+				stat("[player.key]", (player.ready)?("(Playing[futurejob])"):(null))
 				totalPlayers++
 				if(player.ready)totalPlayersReady++
 
@@ -453,6 +457,9 @@
 		new_character.regenerate_icons()
 
 		new_character.key = key		//Manually transfer the key to log them in
+
+		new_character << sound('code/WorkInProgress/carrotman2013/sounds/ambience/nostromo.ogg', volume = 17, channel = 7925)
+
 		if(new_character.client) new_character.client.change_view(world.view)
 
 		return new_character
